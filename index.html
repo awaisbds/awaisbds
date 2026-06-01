@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Awais Ali — Mechanical Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #0a0c0f;
+    --surface: #111318;
+    --surface2: #181c24;
+    --border: #1f2530;
+    --accent: #e8a000;
+    --accent2: #00c2ff;
+    --text: #d4dbe8;
+    --muted: #5a6378;
+    --grid: rgba(255,255,255,0.025);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--accent);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9999;
+    transform: translate(-50%,-50%);
+    transition: transform 0.1s, width 0.2s, height 0.2s, background 0.2s;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1px solid var(--accent);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9998;
+    transform: translate(-50%,-50%);
+    transition: transform 0.15s ease, opacity 0.2s;
+    opacity: 0.5;
+  }
+
+  /* Blueprint grid background */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none; z-index: 0;
+  }
+
+  /* Noise texture overlay */
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0; opacity: 0.4;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 60px;
+    background: linear-gradient(to bottom, rgba(10,12,15,0.95), transparent);
+    backdrop-filter: blur(4px);
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem; letter-spacing: 0.1em;
+    color: var(--accent);
+    position: relative;
+  }
+  .nav-logo::after {
+    content: '';
+    position: absolute; bottom: -2px; left: 0;
+    width: 100%; height: 2px;
+    background: var(--accent);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .nav-logo:hover::after { transform: scaleX(1); }
+  .nav-links { display: flex; gap: 36px; }
+  .nav-links a {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem; color: var(--muted);
+    text-decoration: none; letter-spacing: 0.12em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent2); }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 120px 60px 80px;
+    position: relative; overflow: hidden;
+  }
+  .hero-badge {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem; color: var(--accent2);
+    letter-spacing: 0.2em;
+    border: 1px solid var(--accent2);
+    display: inline-block; padding: 6px 14px;
+    margin-bottom: 28px;
+    opacity: 0; animation: fadeUp 0.6s ease 0.2s forwards;
+  }
+  .hero-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(5rem, 12vw, 11rem);
+    line-height: 0.9;
+    letter-spacing: -0.01em;
+    color: var(--text);
+    opacity: 0; animation: fadeUp 0.8s ease 0.4s forwards;
+  }
+  .hero-name span { color: var(--accent); }
+  .hero-tagline {
+    margin-top: 28px;
+    font-size: 1.1rem; color: var(--muted);
+    max-width: 480px; line-height: 1.7;
+    opacity: 0; animation: fadeUp 0.8s ease 0.6s forwards;
+  }
+  .hero-tagline strong { color: var(--text); font-weight: 500; }
+  .hero-cta {
+    margin-top: 44px; display: flex; gap: 16px; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp 0.8s ease 0.8s forwards;
+  }
+  .btn {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.78rem; letter-spacing: 0.12em;
+    padding: 14px 28px; border: none; cursor: pointer;
+    text-decoration: none; display: inline-block;
+    transition: all 0.25s;
+  }
+  .btn-primary {
+    background: var(--accent); color: #000;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  }
+  .btn-primary:hover { background: #ffbe33; transform: translateY(-2px); }
+  .btn-outline {
+    background: transparent; color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-outline:hover { border-color: var(--muted); transform: translateY(-2px); }
+
+  /* Hero right — technical visual */
+  .hero-right {
+    position: absolute; right: 60px; top: 50%;
+    transform: translateY(-50%);
+    width: 360px; height: 360px;
+    opacity: 0; animation: fadeIn 1.2s ease 1s forwards;
+  }
+  .gear-svg { width: 100%; height: 100%; }
+  .gear-svg .gear1 { animation: spin 18s linear infinite; transform-origin: 50% 50%; }
+  .gear-svg .gear2 { animation: spin 12s linear infinite reverse; transform-origin: 50% 50%; }
+
+  /* Stats row */
+  .hero-stats {
+    position: absolute; bottom: 60px; left: 60px;
+    display: flex; gap: 60px;
+    opacity: 0; animation: fadeUp 0.8s ease 1.2s forwards;
+  }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.8rem; color: var(--accent); line-height: 1;
+  }
+  .stat-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem; color: var(--muted);
+    letter-spacing: 0.15em; margin-top: 4px;
+  }
+
+  /* ─── SECTION BASE ─── */
+  section {
+    padding: 100px 60px;
+    position: relative; z-index: 1;
+  }
+  .section-header {
+    display: flex; align-items: center; gap: 20px;
+    margin-bottom: 60px;
+  }
+  .section-number {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem; color: var(--accent);
+    letter-spacing: 0.2em;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.4rem, 4vw, 3.2rem);
+    letter-spacing: 0.04em; color: var(--text);
+  }
+  .section-line {
+    flex: 1; height: 1px;
+    background: linear-gradient(to right, var(--border), transparent);
+  }
+
+  /* ─── ABOUT ─── */
+  #about { background: var(--surface); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+    align-items: start;
+  }
+  .about-text p {
+    font-size: 1rem; line-height: 1.9; color: var(--muted);
+    margin-bottom: 20px;
+  }
+  .about-text p strong { color: var(--text); font-weight: 500; }
+  .about-info {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+    margin-top: 36px;
+  }
+  .info-item {
+    border-left: 2px solid var(--accent);
+    padding-left: 16px;
+  }
+  .info-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem; color: var(--muted);
+    letter-spacing: 0.15em; margin-bottom: 4px;
+  }
+  .info-value { font-size: 0.9rem; color: var(--text); font-weight: 500; }
+
+  /* Skills panel */
+  .skills-panel {}
+  .skill-category { margin-bottom: 32px; }
+  .skill-cat-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem; color: var(--accent2);
+    letter-spacing: 0.18em; margin-bottom: 14px;
+  }
+  .skill-bar-row { margin-bottom: 12px; }
+  .skill-bar-header {
+    display: flex; justify-content: space-between;
+    font-size: 0.8rem; color: var(--text); margin-bottom: 6px;
+  }
+  .skill-bar-header span:last-child {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem; color: var(--muted);
+  }
+  .skill-track {
+    height: 3px; background: var(--border); position: relative;
+  }
+  .skill-fill {
+    height: 100%; background: var(--accent);
+    width: 0%; transition: width 1.4s cubic-bezier(0.16,1,0.3,1);
+  }
+  .skill-fill.accent2 { background: var(--accent2); }
+
+  /* ─── PROJECTS ─── */
+  #projects {}
+  .projects-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+    background: var(--border);
+  }
+  .project-card {
+    background: var(--surface);
+    padding: 36px 32px;
+    position: relative; overflow: hidden;
+    transition: background 0.3s;
+    cursor: pointer;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px; background: var(--accent);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+  }
+  .project-card:hover { background: var(--surface2); }
+  .project-card:hover::before { transform: scaleX(1); }
+  .project-icon {
+    font-size: 2rem; margin-bottom: 20px;
+    display: block;
+  }
+  .project-tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem; color: var(--accent2);
+    letter-spacing: 0.15em; margin-bottom: 12px;
+  }
+  .project-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem; letter-spacing: 0.04em;
+    color: var(--text); margin-bottom: 12px; line-height: 1.2;
+  }
+  .project-desc {
+    font-size: 0.82rem; color: var(--muted);
+    line-height: 1.7; margin-bottom: 20px;
+  }
+  .project-meta {
+    display: flex; gap: 8px; flex-wrap: wrap;
+  }
+  .tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.6rem; letter-spacing: 0.1em;
+    padding: 4px 10px; border: 1px solid var(--border);
+    color: var(--muted);
+  }
+  .project-result {
+    margin-top: 16px; padding-top: 16px;
+    border-top: 1px solid var(--border);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem; color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+
+  /* ─── EDUCATION & TIMELINE ─── */
+  #education { background: var(--surface); }
+  .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
+  .timeline { position: relative; padding-left: 32px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 0; top: 8px; bottom: 0;
+    width: 1px; background: var(--border);
+  }
+  .timeline-item { position: relative; margin-bottom: 44px; }
+  .timeline-dot {
+    position: absolute; left: -36px; top: 6px;
+    width: 10px; height: 10px;
+    background: var(--accent); border-radius: 50%;
+    box-shadow: 0 0 12px var(--accent);
+  }
+  .timeline-date {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem; color: var(--accent2);
+    letter-spacing: 0.15em; margin-bottom: 8px;
+  }
+  .timeline-title { font-size: 1rem; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+  .timeline-sub { font-size: 0.82rem; color: var(--muted); }
+
+  /* Courses */
+  .courses-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .course-chip {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 0.1em;
+    padding: 10px 14px; border: 1px solid var(--border);
+    color: var(--muted); position: relative; overflow: hidden;
+    transition: all 0.2s;
+  }
+  .course-chip::before {
+    content: ''; position: absolute;
+    inset: 0; background: var(--accent);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s; z-index: 0;
+    opacity: 0.07;
+  }
+  .course-chip:hover { color: var(--text); border-color: var(--accent); }
+  .course-chip:hover::before { transform: scaleX(1); }
+
+  /* ─── CONTACT ─── */
+  #contact {}
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .contact-intro p {
+    font-size: 1rem; line-height: 1.9; color: var(--muted); margin-bottom: 36px;
+  }
+  .contact-links { display: flex; flex-direction: column; gap: 16px; }
+  .contact-link {
+    display: flex; align-items: center; gap: 16px;
+    font-size: 0.9rem; color: var(--text); text-decoration: none;
+    padding: 16px 20px; border: 1px solid var(--border);
+    transition: all 0.25s; position: relative; overflow: hidden;
+  }
+  .contact-link::after {
+    content: '→'; position: absolute; right: 20px;
+    color: var(--accent); opacity: 0; transition: opacity 0.2s, right 0.2s;
+  }
+  .contact-link:hover { border-color: var(--accent); padding-right: 44px; }
+  .contact-link:hover::after { opacity: 1; right: 16px; }
+  .contact-icon {
+    font-size: 1.2rem; width: 28px; text-align: center;
+  }
+  .contact-label { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; color: var(--muted); letter-spacing: 0.1em; }
+  .contact-val { font-size: 0.9rem; color: var(--text); margin-top: 2px; }
+
+  /* Contact form */
+  .contact-form { display: flex; flex-direction: column; gap: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 8px; }
+  .form-label {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem; color: var(--muted); letter-spacing: 0.15em;
+  }
+  .form-input, .form-textarea {
+    background: var(--surface2); border: 1px solid var(--border);
+    color: var(--text); font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem; padding: 14px 16px;
+    outline: none; transition: border-color 0.2s; resize: none;
+  }
+  .form-input:focus, .form-textarea:focus { border-color: var(--accent); }
+  .form-textarea { height: 120px; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    padding: 40px 60px;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    position: relative; z-index: 1;
+  }
+  .footer-copy {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem; color: var(--muted); letter-spacing: 0.1em;
+  }
+  .footer-tag {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem; color: var(--border);
+    letter-spacing: 0.1em;
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; } to { opacity: 1; }
+  }
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.6; } 50% { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    nav { padding: 20px 24px; }
+    .nav-links { display: none; }
+    section { padding: 70px 24px; }
+    #hero { padding: 120px 24px 80px; }
+    .hero-right { display: none; }
+    .about-grid, .edu-grid, .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .hero-stats { left: 24px; gap: 32px; }
+    footer { padding: 32px 24px; flex-direction: column; gap: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Custom cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">AA</div>
+  <div class="nav-links">
+    <a href="#about">_ABOUT</a>
+    <a href="#projects">_PROJECTS</a>
+    <a href="#education">_EDUCATION</a>
+    <a href="#contact">_CONTACT</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div>
+    <div class="hero-badge">BS MECHANICAL ENGINEERING · UMT LAHORE</div>
+    <h1 class="hero-name">AWAIS<br><span>ALI</span></h1>
+    <p class="hero-tagline">
+      <strong>Mechanical Engineer in training.</strong> Passionate about thermal systems, CAD design, and sustainable energy solutions. Turning physics into reality — one simulation at a time.
+    </p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">VIEW PROJECTS</a>
+      <a href="#contact" class="btn btn-outline">GET IN TOUCH</a>
+    </div>
+  </div>
+
+  <!-- Gear SVG -->
+  <div class="hero-right">
+    <svg class="gear-svg" viewBox="0 0 360 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Main Gear -->
+      <g class="gear1" opacity="0.15">
+        <path d="M180 80 L193 60 L180 40 L167 60 Z" fill="#e8a000"/>
+        <path d="M240 100 L258 88 L254 68 L236 80 Z" fill="#e8a000"/>
+        <path d="M280 140 L300 136 L302 116 L282 120 Z" fill="#e8a000"/>
+        <path d="M300 200 L320 206 L326 186 L306 180 Z" fill="#e8a000"/>
+        <path d="M280 260 L296 272 L308 256 L292 244 Z" fill="#e8a000"/>
+        <path d="M240 296 L248 316 L268 310 L260 290 Z" fill="#e8a000"/>
+        <path d="M180 312 L180 332 L200 332 L200 312 Z" fill="#e8a000"/>
+        <path d="M120 296 L112 316 L92 310 L100 290 Z" fill="#e8a000"/>
+        <path d="M80 260 L64 272 L52 256 L68 244 Z" fill="#e8a000"/>
+        <path d="M60 200 L40 206 L34 186 L54 180 Z" fill="#e8a000"/>
+        <path d="M80 140 L60 136 L58 116 L78 120 Z" fill="#e8a000"/>
+        <path d="M120 100 L102 88 L106 68 L124 80 Z" fill="#e8a000"/>
+        <circle cx="180" cy="180" r="90" stroke="#e8a000" stroke-width="1.5"/>
+        <circle cx="180" cy="180" r="30" stroke="#e8a000" stroke-width="1.5"/>
+      </g>
+      <!-- Small Gear -->
+      <g class="gear2" opacity="0.1" transform="translate(80,60)">
+        <path d="M50 10 L56 0 L50 -10 L44 0 Z" fill="#00c2ff"/>
+        <path d="M78 26 L88 22 L86 12 L76 16 Z" fill="#00c2ff"/>
+        <path d="M90 55 L100 53 L100 43 L90 45 Z" fill="#00c2ff"/>
+        <path d="M78 84 L88 88 L90 78 L80 74 Z" fill="#00c2ff"/>
+        <path d="M50 100 L50 110 L60 110 L60 100 Z" fill="#00c2ff"/>
+        <path d="M22 84 L12 88 L10 78 L20 74 Z" fill="#00c2ff"/>
+        <path d="M10 55 L0 53 L0 43 L10 45 Z" fill="#00c2ff"/>
+        <path d="M22 26 L12 22 L14 12 L24 16 Z" fill="#00c2ff"/>
+        <circle cx="50" cy="50" r="36" stroke="#00c2ff" stroke-width="1"/>
+        <circle cx="50" cy="50" r="12" stroke="#00c2ff" stroke-width="1"/>
+      </g>
+      <!-- Orbit rings -->
+      <circle cx="180" cy="180" r="150" stroke="#e8a000" stroke-width="0.5" stroke-dasharray="4 8" opacity="0.2"/>
+      <circle cx="180" cy="180" r="170" stroke="#00c2ff" stroke-width="0.3" stroke-dasharray="2 12" opacity="0.15"/>
+      <!-- Center dot -->
+      <circle cx="180" cy="180" r="6" fill="#e8a000" opacity="0.6"/>
+    </svg>
+  </div>
+
+  <!-- Stats -->
+  <div class="hero-stats">
+    <div>
+      <div class="stat-num">3rd</div>
+      <div class="stat-label">YEAR · BS ME</div>
+    </div>
+    <div>
+      <div class="stat-num">6+</div>
+      <div class="stat-label">PROJECTS DONE</div>
+    </div>
+    <div>
+      <div class="stat-num">3.4</div>
+      <div class="stat-label">CURRENT CGPA</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header reveal">
+    <span class="section-number">// 01</span>
+    <h2 class="section-title">ABOUT ME</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>I'm <strong>Awais Ali</strong>, a 3rd-year Mechanical Engineering student at the <strong>University of Management and Technology (UMT), Lahore</strong>. My work sits at the intersection of mechanical design, thermodynamics, and computational analysis.</p>
+      <p>I'm driven by real-world engineering challenges — from optimizing heat exchangers to designing functional CAD assemblies. I believe great engineering starts with <strong>curiosity and precision</strong>, and I bring both to every project I take on.</p>
+      <p>Currently seeking internship opportunities in the <strong>energy, manufacturing, or automotive</strong> sectors to bridge academic knowledge with industrial experience.</p>
+      <div class="about-info">
+        <div class="info-item">
+          <div class="info-label">UNIVERSITY</div>
+          <div class="info-value">UMT Lahore</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">DEGREE</div>
+          <div class="info-value">BS Mechanical Eng.</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">YEAR</div>
+          <div class="info-value">3rd Year (6th Sem)</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">CGPA</div>
+          <div class="info-value">3.40 / 4.00</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">LOCATION</div>
+          <div class="info-value">Lahore, Pakistan</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">STATUS</div>
+          <div class="info-value">Open to Internship</div>
+        </div>
+      </div>
+    </div>
+    <div class="skills-panel reveal">
+      <div class="skill-category">
+        <div class="skill-cat-label">// ENGINEERING SOFTWARE</div>
+        <div class="skill-bar-row">
+          <div class="skill-bar-header"><span>SolidWorks</span><span>88%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-width="88"></div></div>
+        </div>
+        <div class="skill-bar-row">
+          <div class="skill-bar-header"><span>AutoCAD</span><span>82%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-width="82"></div></div>
+        </div>
+        <div class="skill-bar-row">
+          <div class="skill-bar-header"><span>ANSYS (FEA/CFD)</span><span>70%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-width="70"></div></div>
+        </div>
+        <div class="skill-bar-row">
+          <div class="skill-bar-header"><span>MATLAB</span><span>75%</span></div>
+          <div class="skill-track"><div class="skill-fill" data-width="75"></div></div>
+        </div>
+      </div>
+      <div class="skill-category">
+        <div class="skill-cat-label">// CORE DISCIPLINES</div>
+        <div class="skill-bar-row">
+          <div class="skill-bar-header"><span>Thermodynamics</span><span>85%</span></div>
+          <div class="skill-track"><div class="skill-fill accent2" data-width="85"></div></div>
+        </div>
+        <div class="skill-bar-row">
+          <div class="skill-bar-header"><span>Fluid Mechanics</span><span>78%</span></div>
+          <div class="skill-track"><div class="skill-fill accent2" data-width="78"></div></div>
+        </div>
+        <div class="skill-bar-row">
+          <div class="skill-bar-header"><span>Structural Analysis</span><span>72%</span></div>
+          <div class="skill-track"><div class="skill-fill accent2" data-width="72"></div></div>
+        </div>
+        <div class="skill-bar-row">
+          <div class="skill-bar-header"><span>Manufacturing Processes</span><span>80%</span></div>
+          <div class="skill-track"><div class="skill-fill accent2" data-width="80"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header reveal">
+    <span class="section-number">// 02</span>
+    <h2 class="section-title">PROJECTS</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="projects-grid">
+
+    <div class="project-card reveal">
+      <span class="project-icon">⚙️</span>
+      <div class="project-tag">CAD DESIGN · SOLIDWORKS</div>
+      <h3 class="project-name">FOUR-STROKE ENGINE ASSEMBLY</h3>
+      <p class="project-desc">Full parametric 3D model of a single-cylinder 4-stroke petrol engine with animated motion study. Includes crankshaft, piston assembly, camshaft, and valve train with exploded view documentation.</p>
+      <div class="project-meta">
+        <span class="tag">SolidWorks</span>
+        <span class="tag">Motion Analysis</span>
+        <span class="tag">GD&T</span>
+      </div>
+      <div class="project-result">⟶ 98% DIMENSIONAL ACCURACY · A GRADE</div>
+    </div>
+
+    <div class="project-card reveal">
+      <span class="project-icon">🌡️</span>
+      <div class="project-tag">THERMAL ANALYSIS · ANSYS</div>
+      <h3 class="project-name">SHELL & TUBE HEAT EXCHANGER OPTIMIZATION</h3>
+      <p class="project-desc">CFD simulation of a counter-flow shell-and-tube heat exchanger to optimize baffle spacing and tube diameter for maximum thermal efficiency in industrial cooling systems.</p>
+      <div class="project-meta">
+        <span class="tag">ANSYS Fluent</span>
+        <span class="tag">CFD</span>
+        <span class="tag">Heat Transfer</span>
+      </div>
+      <div class="project-result">⟶ 23% EFFICIENCY GAIN DEMONSTRATED</div>
+    </div>
+
+    <div class="project-card reveal">
+      <span class="project-icon">🌬️</span>
+      <div class="project-tag">FLUID MECHANICS · MATLAB</div>
+      <h3 class="project-name">WIND TURBINE BLADE DESIGN</h3>
+      <p class="project-desc">Aerodynamic analysis and blade geometry optimization for a small-scale horizontal-axis wind turbine using NACA airfoil profiles. MATLAB-based power output simulation across wind speed ranges.</p>
+      <div class="project-meta">
+        <span class="tag">MATLAB</span>
+        <span class="tag">Aerodynamics</span>
+        <span class="tag">NACA Profiles</span>
+      </div>
+      <div class="project-result">⟶ 340W OUTPUT AT 9 M/S WIND SPEED</div>
+    </div>
+
+    <div class="project-card reveal">
+      <span class="project-icon">🏗️</span>
+      <div class="project-tag">STRUCTURAL FEA · ANSYS</div>
+      <h3 class="project-name">BRIDGE TRUSS STRESS ANALYSIS</h3>
+      <p class="project-desc">Finite element analysis of a Pratt truss bridge under static and dynamic loading conditions. Identified critical stress concentrations and proposed material and geometry improvements reducing max stress by 18%.</p>
+      <div class="project-meta">
+        <span class="tag">ANSYS Mechanical</span>
+        <span class="tag">FEA</span>
+        <span class="tag">Structural</span>
+      </div>
+      <div class="project-result">⟶ 18% STRESS REDUCTION ACHIEVED</div>
+    </div>
+
+    <div class="project-card reveal">
+      <span class="project-icon">🤖</span>
+      <div class="project-tag">MECHATRONICS · ARDUINO</div>
+      <h3 class="project-name">AUTOMATED CONVEYOR SORTING SYSTEM</h3>
+      <p class="project-desc">Designed and fabricated a prototype conveyor belt with sensor-based object sorting by size and color. Integrated Arduino microcontroller with servo actuators and IR proximity sensors for real-time control.</p>
+      <div class="project-meta">
+        <span class="tag">Arduino</span>
+        <span class="tag">Servo Control</span>
+        <span class="tag">Prototyping</span>
+      </div>
+      <div class="project-result">⟶ 95% SORTING ACCURACY AT 0.4 M/S</div>
+    </div>
+
+    <div class="project-card reveal">
+      <span class="project-icon">🔩</span>
+      <div class="project-tag">MANUFACTURING · LAB PROJECT</div>
+      <h3 class="project-name">CNC MACHINED SHAFT COUPLING</h3>
+      <p class="project-desc">Designed a flexible jaw coupling in SolidWorks and manufactured it using CNC lathe and milling operations. Full tolerance analysis, surface finish specification, and assembly fit testing performed.</p>
+      <div class="project-meta">
+        <span class="tag">CNC Machining</span>
+        <span class="tag">SolidWorks</span>
+        <span class="tag">GD&T</span>
+      </div>
+      <div class="project-result">⟶ ±0.02MM TOLERANCE ACHIEVED</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EDUCATION & TIMELINE -->
+<section id="education">
+  <div class="section-header reveal">
+    <span class="section-number">// 03</span>
+    <h2 class="section-title">EDUCATION & EXPERIENCE</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="edu-grid">
+    <div class="timeline reveal">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">2022 — PRESENT</div>
+        <div class="timeline-title">BS Mechanical Engineering</div>
+        <div class="timeline-sub">University of Management & Technology (UMT), Lahore · CGPA: 3.40/4.00</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:var(--accent2);box-shadow:0 0 12px var(--accent2)"></div>
+        <div class="timeline-date">SUMMER 2024</div>
+        <div class="timeline-title">Industrial Visit — PARCO Refinery</div>
+        <div class="timeline-sub">Observed large-scale heat exchanger operations, crude distillation units, and process control systems during a 2-week supervised industrial visit.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:var(--accent2);box-shadow:0 0 12px var(--accent2)"></div>
+        <div class="timeline-date">2024</div>
+        <div class="timeline-title">Team Lead — UMT Engineering Expo</div>
+        <div class="timeline-sub">Led a 4-member team to design and present the Wind Turbine Blade project. Awarded 2nd place among 18 competing teams in the energy category.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">2020 — 2022</div>
+        <div class="timeline-title">FSc Pre-Engineering (HSSC)</div>
+        <div class="timeline-sub">Punjab Group of Colleges, Lahore · 87% Marks</div>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <div class="skill-cat-label" style="margin-bottom:20px">// KEY COURSEWORK</div>
+      <div class="courses-list">
+        <div class="course-chip">Engineering Mechanics</div>
+        <div class="course-chip">Thermodynamics I & II</div>
+        <div class="course-chip">Fluid Mechanics</div>
+        <div class="course-chip">Heat & Mass Transfer</div>
+        <div class="course-chip">Machine Design</div>
+        <div class="course-chip">Manufacturing Processes</div>
+        <div class="course-chip">Engineering Materials</div>
+        <div class="course-chip">Control Systems</div>
+        <div class="course-chip">FEA & Simulation</div>
+        <div class="course-chip">CAD/CAM</div>
+        <div class="course-chip">Mechatronics</div>
+        <div class="course-chip">Power Plant Eng.</div>
+      </div>
+
+      <div class="skill-cat-label" style="margin-top:36px;margin-bottom:20px">// CERTIFICATIONS & ACHIEVEMENTS</div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div class="course-chip" style="border-left:2px solid var(--accent)">SolidWorks CSWA — Certified Associate (2023)</div>
+        <div class="course-chip" style="border-left:2px solid var(--accent)">AutoCAD Essentials — Autodesk Certificate</div>
+        <div class="course-chip" style="border-left:2px solid var(--accent2)">2nd Place — UMT Engineering Expo 2024</div>
+        <div class="course-chip" style="border-left:2px solid var(--accent2)">Dean's List — Semester 4 & 5</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header reveal">
+    <span class="section-number">// 04</span>
+    <h2 class="section-title">GET IN TOUCH</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-intro reveal">
+      <p>I'm actively looking for <strong>internship opportunities</strong> in mechanical, energy, or manufacturing industries. I'm also open to research collaborations and engineering project partnerships.</p>
+      <p>Whether you want to discuss a project, offer an opportunity, or just talk engineering — my inbox is open.</p>
+      <div class="contact-links">
+        <a href="mailto:awaisali@student.umt.edu.pk" class="contact-link">
+          <span class="contact-icon">✉</span>
+          <div><div class="contact-label">EMAIL</div><div class="contact-val">awaisali@student.umt.edu.pk</div></div>
+        </a>
+        <a href="#" class="contact-link">
+          <span class="contact-icon">in</span>
+          <div><div class="contact-label">LINKEDIN</div><div class="contact-val">linkedin.com/in/awaisali-umt</div></div>
+        </a>
+        <a href="#" class="contact-link">
+          <span class="contact-icon">📍</span>
+          <div><div class="contact-label">LOCATION</div><div class="contact-val">Lahore, Punjab, Pakistan</div></div>
+        </a>
+        <a href="#" class="contact-link">
+          <span class="contact-icon">📞</span>
+          <div><div class="contact-label">PHONE</div><div class="contact-val">+92 300 000 0000</div></div>
+        </a>
+      </div>
+    </div>
+    <div class="contact-form reveal">
+      <div class="form-group">
+        <label class="form-label">// YOUR NAME</label>
+        <input class="form-input" type="text" placeholder="John Doe"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">// YOUR EMAIL</label>
+        <input class="form-input" type="email" placeholder="john@company.com"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">// SUBJECT</label>
+        <input class="form-input" type="text" placeholder="Internship Opportunity / Project Inquiry"/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">// MESSAGE</label>
+        <textarea class="form-textarea" placeholder="Write your message here..."></textarea>
+      </div>
+      <button class="btn btn-primary" style="align-self:flex-start;margin-top:8px" onclick="alert('Message sent! (Connect to a backend to make this functional)')">SEND MESSAGE</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-copy">© 2025 AWAIS ALI · BS MECHANICAL ENGINEERING · UMT LAHORE</div>
+  <div class="footer-tag">BUILT WITH PRECISION AND CURIOSITY</div>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const cursorRing = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  function animateCursor() {
+    cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+    cursorRing.style.left = rx + 'px'; cursorRing.style.top = ry + 'px';
+    requestAnimationFrame(animateCursor);
+  }
+  animateCursor();
+  document.querySelectorAll('a, button, .project-card').forEach(el => {
+    el.addEventListener('mouseenter', () => { cursor.style.transform = 'translate(-50%,-50%) scale(2)'; });
+    el.addEventListener('mouseleave', () => { cursor.style.transform = 'translate(-50%,-50%) scale(1)'; });
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.12 });
+  reveals.forEach(r => observer.observe(r));
+
+  // Skill bars animation
+  const skillObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.skill-fill').forEach(bar => {
+          bar.style.width = bar.dataset.width + '%';
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('.skills-panel').forEach(p => skillObs.observe(p));
+</script>
+</body>
+</html>
