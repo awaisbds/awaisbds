@@ -274,21 +274,6 @@ Building cool stuff on the internet</title>
     transition: background 0.3s;
     cursor: pointer;
   }
-  <div class="project-card" onclick="window.location.href='/secret.html'">
-  <span class="project-icon">🧮</span>
-  <div class="project-tag">LIVE TOOL</div>
-  <div class="project-name">ME Calculators</div>
-  <div class="project-desc">
-    Beam deflection, fluid pressure, gear ratios, Reynolds number — real formulas, interactive.
-  </div>
-  <div class="project-meta">
-    <span class="tag">BEAM</span>
-    <span class="tag">FLUID</span>
-    <span class="tag">GEARS</span>
-    <span class="tag">THERMO</span>
-  </div>
-  <div class="project-result">→ OPEN CALCULATORS</div>
-</div>
   .project-card::before {
     content: '';
     position: absolute; top: 0; left: 0; right: 0;
@@ -467,9 +452,6 @@ Building cool stuff on the internet</title>
 </style>
 </head>
 <body>
-  <p style="color:yellow;font-size:30px;">
-🚀 Awais was here!
-</p>
 
 <!-- Custom cursor -->
 <div class="cursor" id="cursor"></div>
@@ -582,11 +564,11 @@ Building cool stuff on the internet</strong>, a 3rd-year Mechanical Engineering 
         </div>
         <div class="info-item">
           <div class="info-label">YEAR</div>
-          <div class="info-value">3rd Year (6th Sem)</div>
+          <div class="info-value">3rd Year (5th Sem)</div>
         </div>
         <div class="info-item">
           <div class="info-label">CGPA</div>
-          <div class="info-value">3.40 / 4.00</div>
+          <div class="info-value">3.17 / 4.00</div>
         </div>
         <div class="info-item">
           <div class="info-label">LOCATION</div>
@@ -650,6 +632,21 @@ Building cool stuff on the internet</strong>, a 3rd-year Mechanical Engineering 
   </div>
   <div class="projects-grid">
 
+    <!-- ME Calculators — ab sahi jagah HTML body mein, CSS ke bahar -->
+    <div class="project-card reveal" onclick="window.location.href='secret.html'">
+      <span class="project-icon">🧮</span>
+      <div class="project-tag">LIVE TOOL</div>
+      <h3 class="project-name">ME CALCULATORS</h3>
+      <p class="project-desc">Beam deflection, fluid pressure, gear ratios, Reynolds number — real formulas, interactive.</p>
+      <div class="project-meta">
+        <span class="tag">BEAM</span>
+        <span class="tag">FLUID</span>
+        <span class="tag">GEARS</span>
+        <span class="tag">THERMO</span>
+      </div>
+      <div class="project-result">→ OPEN CALCULATORS</div>
+    </div>
+
     <div class="project-card reveal">
       <span class="project-icon">⚙️</span>
       <div class="project-tag">CAD DESIGN · SOLIDWORKS</div>
@@ -660,21 +657,9 @@ Building cool stuff on the internet</strong>, a 3rd-year Mechanical Engineering 
         <span class="tag">Motion Analysis</span>
         <span class="tag">GD&T</span>
       </div>
-      <div class="project-result">⟶ 98% DIMENSIONAL ACCURACY · A GRADE</div>
-    </div>
-
-    <div class="project-card reveal">
-      <span class="project-icon">🌡️</span>
-      <div class="project-tag">THERMAL ANALYSIS · ANSYS</div>
-      <h3 class="project-name">SHELL & TUBE HEAT EXCHANGER OPTIMIZATION</h3>
-      <p class="project-desc">CFD simulation of a counter-flow shell-and-tube heat exchanger to optimize baffle spacing and tube diameter for maximum thermal efficiency in industrial cooling systems.</p>
-      <div class="project-meta">
-        <span class="tag">ANSYS Fluent</span>
-        <span class="tag">CFD</span>
-        <span class="tag">Heat Transfer</span>
-      </div>
-      <div class="project-result">⟶ 23% EFFICIENCY GAIN DEMONSTRATED</div>
-    </div>
+      <div class="project-result">⟶ 90% DIMENSIONAL ACCURACY · </div>
+   
+      
 
     <div class="project-card reveal">
       <span class="project-icon">🌬️</span>
@@ -689,46 +674,6 @@ Building cool stuff on the internet</strong>, a 3rd-year Mechanical Engineering 
       <div class="project-result">⟶ 340W OUTPUT AT 9 M/S WIND SPEED</div>
     </div>
 
-    <div class="project-card reveal">
-      <span class="project-icon">🏗️</span>
-      <div class="project-tag">STRUCTURAL FEA · ANSYS</div>
-      <h3 class="project-name">BRIDGE TRUSS STRESS ANALYSIS</h3>
-      <p class="project-desc">Finite element analysis of a Pratt truss bridge under static and dynamic loading conditions. Identified critical stress concentrations and proposed material and geometry improvements reducing max stress by 18%.</p>
-      <div class="project-meta">
-        <span class="tag">ANSYS Mechanical</span>
-        <span class="tag">FEA</span>
-        <span class="tag">Structural</span>
-      </div>
-      <div class="project-result">⟶ 18% STRESS REDUCTION ACHIEVED</div>
-    </div>
-
-    <div class="project-card reveal">
-      <span class="project-icon">🤖</span>
-      <div class="project-tag">MECHATRONICS · ARDUINO</div>
-      <h3 class="project-name">AUTOMATED CONVEYOR SORTING SYSTEM</h3>
-      <p class="project-desc">Designed and fabricated a prototype conveyor belt with sensor-based object sorting by size and color. Integrated Arduino microcontroller with servo actuators and IR proximity sensors for real-time control.</p>
-      <div class="project-meta">
-        <span class="tag">Arduino</span>
-        <span class="tag">Servo Control</span>
-        <span class="tag">Prototyping</span>
-      </div>
-      <div class="project-result">⟶ 95% SORTING ACCURACY AT 0.4 M/S</div>
-    </div>
-
-    <div class="project-card reveal">
-      <span class="project-icon">🔩</span>
-      <div class="project-tag">MANUFACTURING · LAB PROJECT</div>
-      <h3 class="project-name">CNC MACHINED SHAFT COUPLING</h3>
-      <p class="project-desc">Designed a flexible jaw coupling in SolidWorks and manufactured it using CNC lathe and milling operations. Full tolerance analysis, surface finish specification, and assembly fit testing performed.</p>
-      <div class="project-meta">
-        <span class="tag">CNC Machining</span>
-        <span class="tag">SolidWorks</span>
-        <span class="tag">GD&T</span>
-      </div>
-      <div class="project-result">⟶ ±0.02MM TOLERANCE ACHIEVED</div>
-    </div>
-
-  </div>
 </section>
 
 <!-- EDUCATION & TIMELINE -->
@@ -806,21 +751,22 @@ Building cool stuff on the internet</strong>, a 3rd-year Mechanical Engineering 
       <p>I'm actively looking for <strong>internship opportunities</strong> in mechanical, energy, or manufacturing industries. I'm also open to research collaborations and engineering project partnerships.</p>
       <p>Whether you want to discuss a project, offer an opportunity, or just talk engineering — my inbox is open.</p>
       <div class="contact-links">
-        <a href="mailto:awaisali@student.umt.edu.pk" class="contact-link">
+        <a href="mailto:f2024134011@.umt.edu.pk" class="contact-link">
           <span class="contact-icon">✉</span>
-          <div><div class="contact-label">EMAIL</div><div class="contact-val">awaisali@student.umt.edu.pk</div></div>
+          <div><div class="contact-label">EMAIL</div><div class="contact-val">f2024134011@umt.edu.pk</div></div>
         </a>
-        <a href="#" class="contact-link">
+        <a href="https://linkedin.com/in/awaisali-umt" target="_blank" class="contact-link">
           <span class="contact-icon">in</span>
           <div><div class="contact-label">LINKEDIN</div><div class="contact-val">linkedin.com/in/awaisali-umt</div></div>
         </a>
-        <a href="#" class="contact-link">
+        <a href="https://www.google.com/maps/search/Lahore,+Punjab,+Pakistan" target="_blank" class="contact-link">
           <span class="contact-icon">📍</span>
           <div><div class="contact-label">LOCATION</div><div class="contact-val">Lahore, Punjab, Pakistan</div></div>
         </a>
-        <a href="#" class="contact-link">
+        <!-- YAHAN APNA REAL PHONE NUMBER DAALO (tel: ke baad bhi number likhna) -->
+        <a href="tel:+923074515691" class="contact-link">
           <span class="contact-icon">📞</span>
-          <div><div class="contact-label">PHONE</div><div class="contact-val">+92 300 000 0000</div></div>
+          <div><div class="contact-label">PHONE</div><div class="contact-val">+92 30745 15 691</div></div>
         </a>
       </div>
     </div>
