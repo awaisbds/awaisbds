@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Mechanical Engineer 🚀
-Building cool stuff on the internet</title>
+<title>Awais Ali — Mechanical Engineering Student</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
   :root {
@@ -29,28 +28,6 @@ Building cool stuff on the internet</title>
     font-family: 'DM Sans', sans-serif;
     font-weight: 300;
     overflow-x: hidden;
-    cursor: none;
-  }
-
-  /* Custom cursor */
-  .cursor {
-    width: 12px; height: 12px;
-    background: var(--accent);
-    border-radius: 50%;
-    position: fixed; top: 0; left: 0;
-    pointer-events: none; z-index: 9999;
-    transform: translate(-50%,-50%);
-    transition: transform 0.1s, width 0.2s, height 0.2s, background 0.2s;
-  }
-  .cursor-ring {
-    width: 36px; height: 36px;
-    border: 1px solid var(--accent);
-    border-radius: 50%;
-    position: fixed; top: 0; left: 0;
-    pointer-events: none; z-index: 9998;
-    transform: translate(-50%,-50%);
-    transition: transform 0.15s ease, opacity 0.2s;
-    opacity: 0.5;
   }
 
   /* Blueprint grid background */
@@ -236,7 +213,6 @@ Building cool stuff on the internet</title>
   .info-value { font-size: 0.9rem; color: var(--text); font-weight: 500; }
 
   /* Skills panel */
-  .skills-panel {}
   .skill-category { margin-bottom: 32px; }
   .skill-cat-label {
     font-family: 'Share Tech Mono', monospace;
@@ -250,7 +226,7 @@ Building cool stuff on the internet</title>
   }
   .skill-bar-header span:last-child {
     font-family: 'Share Tech Mono', monospace;
-    font-size: 0.7rem; color: var(--muted);
+    font-size: 0.65rem; color: var(--muted);
   }
   .skill-track {
     height: 3px; background: var(--border); position: relative;
@@ -261,8 +237,16 @@ Building cool stuff on the internet</title>
   }
   .skill-fill.accent2 { background: var(--accent2); }
 
+  /* Soft skill chips */
+  .chip-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+  .soft-chip {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 0.08em;
+    padding: 8px 14px; border: 1px solid var(--border);
+    color: var(--muted);
+  }
+
   /* ─── PROJECTS ─── */
-  #projects {}
   .projects-grid {
     display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
     background: var(--border);
@@ -314,8 +298,8 @@ Building cool stuff on the internet</title>
     margin-top: 16px; padding-top: 16px;
     border-top: 1px solid var(--border);
     font-family: 'Share Tech Mono', monospace;
-    font-size: 0.7rem; color: var(--accent);
-    letter-spacing: 0.1em;
+    font-size: 0.68rem; color: var(--accent);
+    letter-spacing: 0.08em;
   }
 
   /* ─── EDUCATION & TIMELINE ─── */
@@ -339,7 +323,7 @@ Building cool stuff on the internet</title>
     letter-spacing: 0.15em; margin-bottom: 8px;
   }
   .timeline-title { font-size: 1rem; font-weight: 500; color: var(--text); margin-bottom: 4px; }
-  .timeline-sub { font-size: 0.82rem; color: var(--muted); }
+  .timeline-sub { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
 
   /* Courses */
   .courses-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
@@ -361,11 +345,11 @@ Building cool stuff on the internet</title>
   .course-chip:hover::before { transform: scaleX(1); }
 
   /* ─── CONTACT ─── */
-  #contact {}
   .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
   .contact-intro p {
     font-size: 1rem; line-height: 1.9; color: var(--muted); margin-bottom: 36px;
   }
+  .contact-intro p strong { color: var(--text); font-weight: 500; }
   .contact-links { display: flex; flex-direction: column; gap: 16px; }
   .contact-link {
     display: flex; align-items: center; gap: 16px;
@@ -427,9 +411,6 @@ Building cool stuff on the internet</title>
     from { opacity: 0; } to { opacity: 1; }
   }
   @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-  @keyframes pulse {
-    0%, 100% { opacity: 0.6; } 50% { opacity: 1; }
-  }
 
   .reveal {
     opacity: 0; transform: translateY(28px);
@@ -446,16 +427,12 @@ Building cool stuff on the internet</title>
     .hero-right { display: none; }
     .about-grid, .edu-grid, .contact-grid { grid-template-columns: 1fr; gap: 48px; }
     .projects-grid { grid-template-columns: 1fr; }
-    .hero-stats { left: 24px; gap: 32px; }
+    .hero-stats { left: 24px; gap: 32px; flex-wrap: wrap; }
     footer { padding: 32px 24px; flex-direction: column; gap: 12px; }
   }
 </style>
 </head>
 <body>
-
-<!-- Custom cursor -->
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
 
 <!-- NAV -->
 <nav>
@@ -474,7 +451,7 @@ Building cool stuff on the internet</title>
     <div class="hero-badge">BS MECHANICAL ENGINEERING · UMT LAHORE</div>
     <h1 class="hero-name">AWAIS<br><span>ALI</span></h1>
     <p class="hero-tagline">
-      <strong>Mechanical Engineer in training.</strong> Passionate about thermal systems, CAD design, and sustainable energy solutions. Turning physics into reality — one simulation at a time.
+      <strong>Mechanical Engineering student, hands-on builder.</strong> Working across thermodynamics, fluid mechanics, mechanics of materials, and CAD design — with a year of professional sales & communication experience behind me too.
     </p>
     <div class="hero-cta">
       <a href="#projects" class="btn btn-primary">VIEW PROJECTS</a>
@@ -485,7 +462,6 @@ Building cool stuff on the internet</title>
   <!-- Gear SVG -->
   <div class="hero-right">
     <svg class="gear-svg" viewBox="0 0 360 360" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Main Gear -->
       <g class="gear1" opacity="0.15">
         <path d="M180 80 L193 60 L180 40 L167 60 Z" fill="#e8a000"/>
         <path d="M240 100 L258 88 L254 68 L236 80 Z" fill="#e8a000"/>
@@ -502,7 +478,6 @@ Building cool stuff on the internet</title>
         <circle cx="180" cy="180" r="90" stroke="#e8a000" stroke-width="1.5"/>
         <circle cx="180" cy="180" r="30" stroke="#e8a000" stroke-width="1.5"/>
       </g>
-      <!-- Small Gear -->
       <g class="gear2" opacity="0.1" transform="translate(80,60)">
         <path d="M50 10 L56 0 L50 -10 L44 0 Z" fill="#00c2ff"/>
         <path d="M78 26 L88 22 L86 12 L76 16 Z" fill="#00c2ff"/>
@@ -515,10 +490,8 @@ Building cool stuff on the internet</title>
         <circle cx="50" cy="50" r="36" stroke="#00c2ff" stroke-width="1"/>
         <circle cx="50" cy="50" r="12" stroke="#00c2ff" stroke-width="1"/>
       </g>
-      <!-- Orbit rings -->
       <circle cx="180" cy="180" r="150" stroke="#e8a000" stroke-width="0.5" stroke-dasharray="4 8" opacity="0.2"/>
       <circle cx="180" cy="180" r="170" stroke="#00c2ff" stroke-width="0.3" stroke-dasharray="2 12" opacity="0.15"/>
-      <!-- Center dot -->
       <circle cx="180" cy="180" r="6" fill="#e8a000" opacity="0.6"/>
     </svg>
   </div>
@@ -526,15 +499,15 @@ Building cool stuff on the internet</title>
   <!-- Stats -->
   <div class="hero-stats">
     <div>
-      <div class="stat-num">3rd</div>
-      <div class="stat-label">YEAR · BS ME</div>
+      <div class="stat-num">4th</div>
+      <div class="stat-label">SEMESTER COMPLETED</div>
     </div>
     <div>
-      <div class="stat-num">6+</div>
-      <div class="stat-label">PROJECTS DONE</div>
+      <div class="stat-num">6</div>
+      <div class="stat-label">PROJECTS BUILT</div>
     </div>
     <div>
-      <div class="stat-num">3.4</div>
+      <div class="stat-num">3.17</div>
       <div class="stat-label">CURRENT CGPA</div>
     </div>
   </div>
@@ -549,10 +522,9 @@ Building cool stuff on the internet</title>
   </div>
   <div class="about-grid">
     <div class="about-text reveal">
-      <p>I'm <strong>Mechanical Engineer 🚀
-Building cool stuff on the internet</strong>, a 3rd-year Mechanical Engineering student at the <strong>University of Management and Technology (UMT), Lahore</strong>. My work sits at the intersection of mechanical design, thermodynamics, and computational analysis.</p>
-      <p>I'm driven by real-world engineering challenges — from optimizing heat exchangers to designing functional CAD assemblies. I believe great engineering starts with <strong>curiosity and precision</strong>, and I bring both to every project I take on.</p>
-      <p>Currently seeking internship opportunities in the <strong>energy, manufacturing, or automotive</strong> sectors to bridge academic knowledge with industrial experience.</p>
+      <p>I'm <strong>Awais Ali</strong>, a Mechanical Engineering student at the <strong>University of Management and Technology (UMT), Lahore</strong>, with 4 semesters completed. My coursework covers thermodynamics, fluid mechanics, statics, engineering dynamics, and mechanics of materials — backed by hands-on SOLIDWORKS design work.</p>
+      <p>Alongside my studies, I spent <strong>a year working as a Call Operator</strong>, handling sales and customer communication across two companies. That experience sharpened my communication, teamwork, and problem-solving skills in fast-paced, target-driven environments — skills I now bring into engineering teamwork and project work.</p>
+      <p>I'm a <strong>quick adapter and self-motivated learner</strong>, always looking for the next challenge to grow both technically and personally.</p>
       <div class="about-info">
         <div class="info-item">
           <div class="info-label">UNIVERSITY</div>
@@ -563,8 +535,8 @@ Building cool stuff on the internet</strong>, a 3rd-year Mechanical Engineering 
           <div class="info-value">BS Mechanical Eng.</div>
         </div>
         <div class="info-item">
-          <div class="info-label">YEAR</div>
-          <div class="info-value">3rd Year (5th Sem)</div>
+          <div class="info-label">PROGRESS</div>
+          <div class="info-value">4th Semester Completed</div>
         </div>
         <div class="info-item">
           <div class="info-label">CGPA</div>
@@ -576,47 +548,43 @@ Building cool stuff on the internet</strong>, a 3rd-year Mechanical Engineering 
         </div>
         <div class="info-item">
           <div class="info-label">STATUS</div>
-          <div class="info-value">Open to Internship</div>
+          <div class="info-value">Open to Opportunities</div>
         </div>
       </div>
     </div>
     <div class="skills-panel reveal">
       <div class="skill-category">
-        <div class="skill-cat-label">// ENGINEERING SOFTWARE</div>
+        <div class="skill-cat-label">// TECHNICAL SKILLS</div>
         <div class="skill-bar-row">
-          <div class="skill-bar-header"><span>SolidWorks</span><span>88%</span></div>
-          <div class="skill-track"><div class="skill-fill" data-width="88"></div></div>
-        </div>
-        <div class="skill-bar-row">
-          <div class="skill-bar-header"><span>AutoCAD</span><span>82%</span></div>
+          <div class="skill-bar-header"><span>SOLIDWORKS</span><span>PROFICIENT</span></div>
           <div class="skill-track"><div class="skill-fill" data-width="82"></div></div>
         </div>
         <div class="skill-bar-row">
-          <div class="skill-bar-header"><span>ANSYS (FEA/CFD)</span><span>70%</span></div>
-          <div class="skill-track"><div class="skill-fill" data-width="70"></div></div>
+          <div class="skill-bar-header"><span>Thermodynamics</span><span>PROFICIENT</span></div>
+          <div class="skill-track"><div class="skill-fill" data-width="80"></div></div>
         </div>
         <div class="skill-bar-row">
-          <div class="skill-bar-header"><span>MATLAB</span><span>75%</span></div>
-          <div class="skill-track"><div class="skill-fill" data-width="75"></div></div>
+          <div class="skill-bar-header"><span>Fluid Mechanics</span><span>PROFICIENT</span></div>
+          <div class="skill-track"><div class="skill-fill" data-width="78"></div></div>
+        </div>
+        <div class="skill-bar-row">
+          <div class="skill-bar-header"><span>Statics & Dynamics</span><span>PROFICIENT</span></div>
+          <div class="skill-track"><div class="skill-fill" data-width="78"></div></div>
+        </div>
+        <div class="skill-bar-row">
+          <div class="skill-bar-header"><span>Electrical & Electronics Fundamentals</span><span>INTERMEDIATE</span></div>
+          <div class="skill-track"><div class="skill-fill accent2" data-width="65"></div></div>
         </div>
       </div>
       <div class="skill-category">
-        <div class="skill-cat-label">// CORE DISCIPLINES</div>
-        <div class="skill-bar-row">
-          <div class="skill-bar-header"><span>Thermodynamics</span><span>85%</span></div>
-          <div class="skill-track"><div class="skill-fill accent2" data-width="85"></div></div>
-        </div>
-        <div class="skill-bar-row">
-          <div class="skill-bar-header"><span>Fluid Mechanics</span><span>78%</span></div>
-          <div class="skill-track"><div class="skill-fill accent2" data-width="78"></div></div>
-        </div>
-        <div class="skill-bar-row">
-          <div class="skill-bar-header"><span>Structural Analysis</span><span>72%</span></div>
-          <div class="skill-track"><div class="skill-fill accent2" data-width="72"></div></div>
-        </div>
-        <div class="skill-bar-row">
-          <div class="skill-bar-header"><span>Manufacturing Processes</span><span>80%</span></div>
-          <div class="skill-track"><div class="skill-fill accent2" data-width="80"></div></div>
+        <div class="skill-cat-label">// INTERPERSONAL & COMPUTER</div>
+        <div class="chip-row">
+          <span class="soft-chip">Communication</span>
+          <span class="soft-chip">Teamwork</span>
+          <span class="soft-chip">Adaptability</span>
+          <span class="soft-chip">Customer Service</span>
+          <span class="soft-chip">Sales</span>
+          <span class="soft-chip">General Computer Literacy</span>
         </div>
       </div>
     </div>
@@ -632,48 +600,80 @@ Building cool stuff on the internet</strong>, a 3rd-year Mechanical Engineering 
   </div>
   <div class="projects-grid">
 
-    <!-- ME Calculators — ab sahi jagah HTML body mein, CSS ke bahar -->
     <div class="project-card reveal" onclick="window.location.href='secret.html'">
       <span class="project-icon">🧮</span>
-      <div class="project-tag">LIVE TOOL</div>
-      <h3 class="project-name">ME CALCULATORS</h3>
-      <p class="project-desc">Beam deflection, fluid pressure, gear ratios, Reynolds number — real formulas, interactive.</p>
+      <div class="project-tag">LIVE TOOL · WEB</div>
+      <h3 class="project-name">MECHANICAL ENGINEERING CALCULATOR</h3>
+      <p class="project-desc">A self-directed web-based calculator applying core mechanical engineering formulas — built from scratch to reflect technical curiosity and independent problem-solving.</p>
       <div class="project-meta">
-        <span class="tag">BEAM</span>
-        <span class="tag">FLUID</span>
-        <span class="tag">GEARS</span>
-        <span class="tag">THERMO</span>
+        <span class="tag">HTML/CSS/JS</span>
+        <span class="tag">Self-Directed</span>
       </div>
-      <div class="project-result">→ OPEN CALCULATORS</div>
+      <div class="project-result">→ OPEN CALCULATOR</div>
+    </div>
+
+    <div class="project-card reveal">
+      <span class="project-icon">☀️</span>
+      <div class="project-tag">THERMODYNAMICS</div>
+      <h3 class="project-name">SOLAR-POWERED CAR</h3>
+      <p class="project-desc">Designed and built a small-scale solar-powered car as part of thermodynamics coursework, applying energy conversion and power system concepts to a working model.</p>
+      <div class="project-meta">
+        <span class="tag">Solar Energy</span>
+        <span class="tag">Energy Conversion</span>
+      </div>
+      <div class="project-result">→ THERMODYNAMICS COURSE PROJECT</div>
+    </div>
+
+    <div class="project-card reveal">
+      <span class="project-icon">🌬️</span>
+      <div class="project-tag">FLUID MECHANICS</div>
+      <h3 class="project-name">DRAG FORCE ON A CAR</h3>
+      <p class="project-desc">Studied and calculated the aerodynamic drag force acting on a car body, applying fluid mechanics principles to understand how vehicle shape affects resistance.</p>
+      <div class="project-meta">
+        <span class="tag">Aerodynamics</span>
+        <span class="tag">Drag Analysis</span>
+      </div>
+      <div class="project-result">→ FLUID MECHANICS COURSE PROJECT</div>
+    </div>
+
+    <div class="project-card reveal">
+      <span class="project-icon">🔥</span>
+      <div class="project-tag">MECHANICS OF MATERIALS</div>
+      <h3 class="project-name">HOT FORGING METHODS ON METAL</h3>
+      <p class="project-desc">Explored different hot forging techniques used to shape metal, studying how each method affects material properties and structural behavior.</p>
+      <div class="project-meta">
+        <span class="tag">Metal Forming</span>
+        <span class="tag">Material Behavior</span>
+      </div>
+      <div class="project-result">→ MECHANICS OF MATERIALS PROJECT</div>
+    </div>
+
+    <div class="project-card reveal">
+      <span class="project-icon">🪵</span>
+      <div class="project-tag">MECHANICS OF MATERIALS</div>
+      <h3 class="project-name">DEFLECTION OF A WOODEN BEAM</h3>
+      <p class="project-desc">Calculated the deflection of a wooden beam under load, applying beam theory to predict bending behavior under different support and loading conditions.</p>
+      <div class="project-meta">
+        <span class="tag">Beam Theory</span>
+        <span class="tag">Load Analysis</span>
+      </div>
+      <div class="project-result">→ MECHANICS OF MATERIALS PROJECT</div>
     </div>
 
     <div class="project-card reveal">
       <span class="project-icon">⚙️</span>
       <div class="project-tag">CAD DESIGN · SOLIDWORKS</div>
-      <h3 class="project-name">FOUR-STROKE ENGINE ASSEMBLY</h3>
-      <p class="project-desc">Full parametric 3D model of a single-cylinder 4-stroke petrol engine with animated motion study. Includes crankshaft, piston assembly, camshaft, and valve train with exploded view documentation.</p>
+      <h3 class="project-name">PISTON–CRANKSHAFT ASSEMBLY</h3>
+      <p class="project-desc">Modeled a piston-crankshaft assembly in SOLIDWORKS, complete with isometric and 2D orthographic drawings to fully document the design.</p>
       <div class="project-meta">
         <span class="tag">SolidWorks</span>
-        <span class="tag">Motion Analysis</span>
-        <span class="tag">GD&T</span>
+        <span class="tag">Isometric Drawing</span>
+        <span class="tag">2D Drawing</span>
       </div>
-      <div class="project-result">⟶ 90% DIMENSIONAL ACCURACY · </div>
-   
-      
-
-    <div class="project-card reveal">
-      <span class="project-icon">🌬️</span>
-      <div class="project-tag">FLUID MECHANICS · MATLAB</div>
-      <h3 class="project-name">WIND TURBINE BLADE DESIGN</h3>
-      <p class="project-desc">Aerodynamic analysis and blade geometry optimization for a small-scale horizontal-axis wind turbine using NACA airfoil profiles. MATLAB-based power output simulation across wind speed ranges.</p>
-      <div class="project-meta">
-        <span class="tag">MATLAB</span>
-        <span class="tag">Aerodynamics</span>
-        <span class="tag">NACA Profiles</span>
-      </div>
-      <div class="project-result">⟶ 340W OUTPUT AT 9 M/S WIND SPEED</div>
+      <div class="project-result">→ CAD ASSEMBLY & DRAWINGS</div>
     </div>
 
+  </div>
 </section>
 
 <!-- EDUCATION & TIMELINE -->
@@ -687,53 +687,28 @@ Building cool stuff on the internet</strong>, a 3rd-year Mechanical Engineering 
     <div class="timeline reveal">
       <div class="timeline-item">
         <div class="timeline-dot"></div>
-        <div class="timeline-date">2022 — PRESENT</div>
         <div class="timeline-title">BS Mechanical Engineering</div>
-        <div class="timeline-sub">University of Management & Technology (UMT), Lahore · CGPA: 3.40/4.00</div>
+        <div class="timeline-sub">University of Management & Technology (UMT), Lahore · 4th Semester Completed · CGPA: 3.17/4.00</div>
       </div>
       <div class="timeline-item">
         <div class="timeline-dot" style="background:var(--accent2);box-shadow:0 0 12px var(--accent2)"></div>
-        <div class="timeline-date">SUMMER 2024</div>
-        <div class="timeline-title">Industrial Visit — PARCO Refinery</div>
-        <div class="timeline-sub">Observed large-scale heat exchanger operations, crude distillation units, and process control systems during a 2-week supervised industrial visit.</div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-dot" style="background:var(--accent2);box-shadow:0 0 12px var(--accent2)"></div>
-        <div class="timeline-date">2024</div>
-        <div class="timeline-title">Team Lead — UMT Engineering Expo</div>
-        <div class="timeline-sub">Led a 4-member team to design and present the Wind Turbine Blade project. Awarded 2nd place among 18 competing teams in the energy category.</div>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-date">2020 — 2022</div>
-        <div class="timeline-title">FSc Pre-Engineering (HSSC)</div>
-        <div class="timeline-sub">Punjab Group of Colleges, Lahore · 87% Marks</div>
+        <div class="timeline-date">1 YEAR</div>
+        <div class="timeline-title">Call Operator</div>
+        <div class="timeline-sub">Handled sales and customer communication across two companies, building strong client relationships and working effectively in fast-paced, target-driven environments.</div>
       </div>
     </div>
 
     <div class="reveal">
       <div class="skill-cat-label" style="margin-bottom:20px">// KEY COURSEWORK</div>
       <div class="courses-list">
-        <div class="course-chip">Engineering Mechanics</div>
-        <div class="course-chip">Thermodynamics I & II</div>
+        <div class="course-chip">Thermodynamics</div>
         <div class="course-chip">Fluid Mechanics</div>
-        <div class="course-chip">Heat & Mass Transfer</div>
-        <div class="course-chip">Machine Design</div>
-        <div class="course-chip">Manufacturing Processes</div>
-        <div class="course-chip">Engineering Materials</div>
-        <div class="course-chip">Control Systems</div>
-        <div class="course-chip">FEA & Simulation</div>
-        <div class="course-chip">CAD/CAM</div>
-        <div class="course-chip">Mechatronics</div>
-        <div class="course-chip">Power Plant Eng.</div>
-      </div>
-
-      <div class="skill-cat-label" style="margin-top:36px;margin-bottom:20px">// CERTIFICATIONS & ACHIEVEMENTS</div>
-      <div style="display:flex;flex-direction:column;gap:12px">
-        <div class="course-chip" style="border-left:2px solid var(--accent)">SolidWorks CSWA — Certified Associate (2023)</div>
-        <div class="course-chip" style="border-left:2px solid var(--accent)">AutoCAD Essentials — Autodesk Certificate</div>
-        <div class="course-chip" style="border-left:2px solid var(--accent2)">2nd Place — UMT Engineering Expo 2024</div>
-        <div class="course-chip" style="border-left:2px solid var(--accent2)">Dean's List — Semester 4 & 5</div>
+        <div class="course-chip">Statics</div>
+        <div class="course-chip">Engineering Dynamics</div>
+        <div class="course-chip">Mechanics of Materials</div>
+        <div class="course-chip">SOLIDWORKS</div>
+        <div class="course-chip">Electrical Engineering</div>
+        <div class="course-chip">Electronic Engineering</div>
       </div>
     </div>
   </div>
@@ -748,25 +723,20 @@ Building cool stuff on the internet</strong>, a 3rd-year Mechanical Engineering 
   </div>
   <div class="contact-grid">
     <div class="contact-intro reveal">
-      <p>I'm actively looking for <strong>internship opportunities</strong> in mechanical, energy, or manufacturing industries. I'm also open to research collaborations and engineering project partnerships.</p>
-      <p>Whether you want to discuss a project, offer an opportunity, or just talk engineering — my inbox is open.</p>
+      <p>I'm a <strong>Mechanical Engineering student</strong> looking to connect with people and opportunities in mechanical, energy, or manufacturing fields — whether that's an internship, a project collaboration, or just a conversation about engineering.</p>
+      <p>Feel free to reach out through any of the channels below.</p>
       <div class="contact-links">
-        <a href="mailto:f2024134011@.umt.edu.pk" class="contact-link">
+        <a href="mailto:f2024134011@umt.edu.pk" class="contact-link">
           <span class="contact-icon">✉</span>
           <div><div class="contact-label">EMAIL</div><div class="contact-val">f2024134011@umt.edu.pk</div></div>
         </a>
-        <a href="https://linkedin.com/in/awaisali-umt" target="_blank" class="contact-link">
-          <span class="contact-icon">in</span>
-          <div><div class="contact-label">LINKEDIN</div><div class="contact-val">linkedin.com/in/awaisali-umt</div></div>
-        </a>
-        <a href="https://www.google.com/maps/search/Lahore,+Punjab,+Pakistan" target="_blank" class="contact-link">
-          <span class="contact-icon">📍</span>
-          <div><div class="contact-label">LOCATION</div><div class="contact-val">Lahore, Punjab, Pakistan</div></div>
-        </a>
-        <!-- YAHAN APNA REAL PHONE NUMBER DAALO (tel: ke baad bhi number likhna) -->
         <a href="tel:+923074515691" class="contact-link">
           <span class="contact-icon">📞</span>
-          <div><div class="contact-label">PHONE</div><div class="contact-val">+92 30745 15 691</div></div>
+          <div><div class="contact-label">PHONE</div><div class="contact-val">0307 4515691</div></div>
+        </a>
+        <a href="https://www.google.com/maps/search/Lahore,+Pakistan" target="_blank" class="contact-link">
+          <span class="contact-icon">📍</span>
+          <div><div class="contact-label">LOCATION</div><div class="contact-val">Lahore, Pakistan</div></div>
         </a>
       </div>
     </div>
@@ -794,28 +764,11 @@ Building cool stuff on the internet</strong>, a 3rd-year Mechanical Engineering 
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-copy">© 2025 AWAIS ALI · BS MECHANICAL ENGINEERING · UMT LAHORE</div>
+  <div class="footer-copy">© 2026 AWAIS ALI · BS MECHANICAL ENGINEERING · UMT LAHORE</div>
   <div class="footer-tag">BUILT WITH PRECISION AND CURIOSITY</div>
 </footer>
 
 <script>
-  // Custom cursor
-  const cursor = document.getElementById('cursor');
-  const cursorRing = document.getElementById('cursorRing');
-  let mx = 0, my = 0, rx = 0, ry = 0;
-  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-  function animateCursor() {
-    cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
-    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
-    cursorRing.style.left = rx + 'px'; cursorRing.style.top = ry + 'px';
-    requestAnimationFrame(animateCursor);
-  }
-  animateCursor();
-  document.querySelectorAll('a, button, .project-card').forEach(el => {
-    el.addEventListener('mouseenter', () => { cursor.style.transform = 'translate(-50%,-50%) scale(2)'; });
-    el.addEventListener('mouseleave', () => { cursor.style.transform = 'translate(-50%,-50%) scale(1)'; });
-  });
-
   // Scroll reveal
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver(entries => {
