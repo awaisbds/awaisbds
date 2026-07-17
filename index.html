@@ -418,6 +418,210 @@
   }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
+  /* ═══════════════════════════════════════════
+     ADDED: LOADING SCREEN
+  ═══════════════════════════════════════════ */
+  #loader {
+    position: fixed; inset: 0; z-index: 9999;
+    background: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 18px;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+  }
+  #loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+  .loader-gears { position: relative; width: 90px; height: 90px; }
+  .loader-gears svg { position: absolute; inset: 0; }
+  .loader-gears .lg1 { animation: spin 1.4s linear infinite; }
+  .loader-gears .lg2 { animation: spin 1.1s linear infinite reverse; transform-origin: 50% 50%; }
+  .loader-text {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem; letter-spacing: 0.25em; color: var(--muted);
+  }
+  .loader-text span { color: var(--accent); }
+
+  /* ═══════════════════════════════════════════
+     ADDED: CUSTOM CURSOR (desktop only)
+  ═══════════════════════════════════════════ */
+  @media (hover: hover) and (pointer: fine) {
+    body { cursor: none; }
+    a, button, .project-card, .course-chip, .nav-logo { cursor: none; }
+  }
+  #cursor-gear {
+    position: fixed; top: 0; left: 0; width: 26px; height: 26px;
+    margin: -13px 0 0 -13px; pointer-events: none; z-index: 9998;
+    transition: transform 0.15s ease, opacity 0.2s ease;
+    will-change: transform;
+    display: none;
+  }
+  @media (hover: hover) and (pointer: fine) { #cursor-gear { display: block; } }
+  #cursor-gear svg { width: 100%; height: 100%; animation: spin 4s linear infinite; }
+  #cursor-gear.active svg { animation-duration: 0.6s; }
+  #cursor-gear.active { transform: scale(1.5); }
+  #cursor-dot {
+    position: fixed; top: 0; left: 0; width: 4px; height: 4px;
+    margin: -2px 0 0 -2px; border-radius: 50%; background: var(--accent);
+    pointer-events: none; z-index: 9998; display: none;
+  }
+  @media (hover: hover) and (pointer: fine) { #cursor-dot { display: block; } }
+
+  /* Cursor trail dots */
+  .trail-dot {
+    position: fixed; top: 0; left: 0; width: 5px; height: 5px;
+    border-radius: 50%; background: var(--accent2);
+    pointer-events: none; z-index: 9997; opacity: 0.5;
+  }
+
+  /* Click ripple (gear-burst) */
+  .click-ripple {
+    position: fixed; width: 12px; height: 12px; margin: -6px 0 0 -6px;
+    border: 2px solid var(--accent); border-radius: 50%;
+    pointer-events: none; z-index: 9996;
+    animation: rippleOut 0.6s ease-out forwards;
+  }
+  @keyframes rippleOut {
+    from { transform: scale(0.4); opacity: 1; }
+    to   { transform: scale(4); opacity: 0; }
+  }
+
+  /* ═══════════════════════════════════════════
+     ADDED: BACKGROUND FLOATING GEARS & TOOLS
+  ═══════════════════════════════════════════ */
+  #bg-mech-layer {
+    position: fixed; inset: 0; z-index: 0; overflow: hidden;
+    pointer-events: none;
+  }
+  .bg-gear {
+    position: absolute; opacity: 0.05; will-change: transform;
+  }
+  .bg-gear svg { width: 100%; height: 100%; }
+  .bg-gear.spin-cw { animation: spin linear infinite; }
+  .bg-gear.spin-ccw { animation: spin linear infinite reverse; }
+
+  .bg-tool {
+    position: absolute; font-size: 2.2rem; opacity: 0.06;
+    animation: drift ease-in-out infinite alternate;
+    will-change: transform;
+  }
+  @keyframes drift {
+    from { transform: translateY(0) rotate(-8deg); }
+    to   { transform: translateY(-40px) rotate(8deg); }
+  }
+
+  /* ═══════════════════════════════════════════
+     ADDED: SCROLL PROGRESS GAUGE
+  ═══════════════════════════════════════════ */
+  #scroll-gauge-track {
+    position: fixed; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--border); z-index: 200;
+  }
+  #scroll-gauge-fill {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, var(--accent2), var(--accent));
+    box-shadow: 0 0 8px var(--accent);
+    transition: width 0.05s linear;
+  }
+  #scroll-gauge-label {
+    position: fixed; top: 8px; right: 20px; z-index: 200;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.65rem; color: var(--accent);
+    letter-spacing: 0.12em;
+    opacity: 0.85;
+  }
+
+  /* ═══════════════════════════════════════════
+     ADDED: CONVEYOR BELT DIVIDER
+  ═══════════════════════════════════════════ */
+  .conveyor-divider {
+    height: 18px; width: 100%;
+    background-image: repeating-linear-gradient(
+      -45deg, var(--border) 0 10px, transparent 10px 20px
+    );
+    background-size: 28px 18px;
+    animation: conveyorMove 1.4s linear infinite;
+    position: relative; z-index: 1;
+    opacity: 0.6;
+  }
+  @keyframes conveyorMove {
+    from { background-position: 0 0; }
+    to   { background-position: 28px 0; }
+  }
+
+  /* ═══════════════════════════════════════════
+     ADDED: PROJECT CARD BOLT CORNER + TILT
+  ═══════════════════════════════════════════ */
+  .project-card { transform-style: preserve-3d; transition: transform 0.15s ease, background 0.3s; }
+  .bolt-corner {
+    position: absolute; top: 10px; right: 12px;
+    font-size: 0.9rem; opacity: 0.35; color: var(--muted);
+    transition: transform 0.4s ease, opacity 0.2s ease, color 0.2s ease;
+  }
+  .project-card:hover .bolt-corner {
+    transform: rotate(220deg); opacity: 0.9; color: var(--accent);
+  }
+
+  /* ═══════════════════════════════════════════
+     ADDED: TIMELINE DOT PULSE
+  ═══════════════════════════════════════════ */
+  .timeline-dot { animation: dotPulse 2s ease-in-out infinite; }
+  @keyframes dotPulse {
+    0%, 100% { box-shadow: 0 0 6px var(--accent); }
+    50%      { box-shadow: 0 0 18px var(--accent), 0 0 30px var(--accent); }
+  }
+
+  /* ═══════════════════════════════════════════
+     ADDED: SECTION NUMBER GLOW PULSE
+  ═══════════════════════════════════════════ */
+  .section-number { animation: numGlow 2.6s ease-in-out infinite; }
+  @keyframes numGlow {
+    0%, 100% { text-shadow: 0 0 0px transparent; opacity: 0.8; }
+    50%      { text-shadow: 0 0 8px var(--accent); opacity: 1; }
+  }
+
+  /* ═══════════════════════════════════════════
+     ADDED: HERO NAME METAL SHINE SWEEP
+  ═══════════════════════════════════════════ */
+  .hero-name span.shine {
+    background: linear-gradient(110deg, var(--accent) 30%, #fff 50%, var(--accent) 70%);
+    background-size: 250% 100%;
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    animation: shineSweep 3.5s ease-in-out infinite;
+  }
+  @keyframes shineSweep {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -100% 0; }
+  }
+
+  /* ═══════════════════════════════════════════
+     ADDED: MAGNETIC BUTTON HELPER (JS-driven via inline transform)
+  ═══════════════════════════════════════════ */
+  .btn { transition: transform 0.15s ease, background 0.25s, border-color 0.25s; }
+  .btn:active { transform: scale(0.94) !important; }
+
+  /* ═══════════════════════════════════════════
+     ADDED: CUSTOM SCROLLBAR (gear-track look)
+  ═══════════════════════════════════════════ */
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: var(--surface); }
+  ::-webkit-scrollbar-thumb {
+    background: repeating-linear-gradient(45deg, var(--accent) 0 3px, #7a5800 3px 6px);
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+  /* ═══════════════════════════════════════════
+     ADDED: EASTER EGG TOAST
+  ═══════════════════════════════════════════ */
+  #egg-toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(20px);
+    background: var(--surface2); border: 1px solid var(--accent);
+    color: var(--text); font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem; letter-spacing: 0.08em;
+    padding: 14px 22px; z-index: 500; opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none; box-shadow: 0 0 20px rgba(232,160,0,0.3);
+  }
+  #egg-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
   /* Responsive */
   @media (max-width: 900px) {
     nav { padding: 20px 24px; }
@@ -429,10 +633,66 @@
     .projects-grid { grid-template-columns: 1fr; }
     .hero-stats { left: 24px; gap: 32px; flex-wrap: wrap; }
     footer { padding: 32px 24px; flex-direction: column; gap: 12px; }
+    #cursor-gear, #cursor-dot, .trail-dot { display: none !important; }
+    #scroll-gauge-label { display: none; }
+    .bg-tool { font-size: 1.5rem; }
   }
 </style>
 </head>
 <body>
+
+<!-- ADDED: LOADING SCREEN (gear assembly) -->
+<div id="loader">
+  <div class="loader-gears">
+    <svg class="lg1" viewBox="0 0 100 100" style="position:absolute;top:0;left:0;width:60px;height:60px;">
+      <path d="M50 6 L58 20 L42 20 Z" fill="#e8a000"/>
+      <path d="M50 94 L58 80 L42 80 Z" fill="#e8a000"/>
+      <path d="M6 50 L20 58 L20 42 Z" fill="#e8a000"/>
+      <path d="M94 50 L80 58 L80 42 Z" fill="#e8a000"/>
+      <path d="M18 18 L30 26 L26 30 Z" fill="#e8a000"/>
+      <path d="M82 82 L70 74 L74 70 Z" fill="#e8a000"/>
+      <path d="M18 82 L30 74 L26 70 Z" fill="#e8a000"/>
+      <path d="M82 18 L70 26 L74 30 Z" fill="#e8a000"/>
+      <circle cx="50" cy="50" r="30" stroke="#e8a000" stroke-width="4" fill="none"/>
+      <circle cx="50" cy="50" r="10" stroke="#e8a000" stroke-width="3" fill="none"/>
+    </svg>
+    <svg class="lg2" viewBox="0 0 100 100" style="position:absolute;bottom:0;right:0;width:44px;height:44px;">
+      <path d="M50 10 L56 22 L44 22 Z" fill="#00c2ff"/>
+      <path d="M50 90 L56 78 L44 78 Z" fill="#00c2ff"/>
+      <path d="M10 50 L22 56 L22 44 Z" fill="#00c2ff"/>
+      <path d="M90 50 L78 56 L78 44 Z" fill="#00c2ff"/>
+      <circle cx="50" cy="50" r="26" stroke="#00c2ff" stroke-width="4" fill="none"/>
+    </svg>
+  </div>
+  <div class="loader-text">ASSEMBLING<span>...</span></div>
+</div>
+
+<!-- ADDED: CUSTOM CURSOR -->
+<div id="cursor-gear">
+  <svg viewBox="0 0 100 100">
+    <path d="M50 6 L58 20 L42 20 Z" fill="#e8a000"/>
+    <path d="M50 94 L58 80 L42 80 Z" fill="#e8a000"/>
+    <path d="M6 50 L20 58 L20 42 Z" fill="#e8a000"/>
+    <path d="M94 50 L80 58 L80 42 Z" fill="#e8a000"/>
+    <path d="M18 18 L30 26 L26 30 Z" fill="#e8a000"/>
+    <path d="M82 82 L70 74 L74 70 Z" fill="#e8a000"/>
+    <path d="M18 82 L30 74 L26 70 Z" fill="#e8a000"/>
+    <path d="M82 18 L70 26 L74 30 Z" fill="#e8a000"/>
+    <circle cx="50" cy="50" r="30" stroke="#e8a000" stroke-width="6" fill="none"/>
+    <circle cx="50" cy="50" r="10" fill="#e8a000"/>
+  </svg>
+</div>
+<div id="cursor-dot"></div>
+
+<!-- ADDED: SCROLL PROGRESS GAUGE -->
+<div id="scroll-gauge-track"><div id="scroll-gauge-fill"></div></div>
+<div id="scroll-gauge-label">0%</div>
+
+<!-- ADDED: BACKGROUND FLOATING GEARS & TOOLS (parallax) -->
+<div id="bg-mech-layer"></div>
+
+<!-- ADDED: EASTER EGG TOAST -->
+<div id="egg-toast">⚙️ ENGINEERED WITH PASSION 🔧 — keep clicking, engineer!</div>
 
 <!-- NAV -->
 <nav>
